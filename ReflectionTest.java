@@ -1,5 +1,7 @@
 package reflection;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Scanner;
 
@@ -35,6 +37,32 @@ public class ReflectionTest {
     }
 
     public static void printConstructor(Class cl){
-        cl.getDeclaredMethods();
+        Constructor[] constructors = cl.getDeclaredConstructors();
+
+        for (Constructor c : constructors){
+            String name = c.getName();
+            System.out.println("    ");
+            String modifiers = Modifier.toString(c.getModifiers());
+            if (modifiers.length() > 0) System.out.println(modifiers + "");
+            System.out.println(name + "(");
+
+            Class[] paramTypes = c.getParameterTypes();
+            for (int j = 0; j < paramTypes.length; j++){
+                if (j > 0) System.out.println(", ");
+                System.out.println(paramTypes[j].getName());
+            }
+            System.out.println(");");
+        }
+    }
+
+    public static void printMethods(Class cl){
+        Method[] methods = cl.getDeclaredMethods();
+
+        for (Method m : methods){
+            Class retType = m.getReturnType();
+            String name = m.getName();
+
+            System.out.println("  ");
+        }
     }
 }
