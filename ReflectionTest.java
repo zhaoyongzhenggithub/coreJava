@@ -1,6 +1,7 @@
 package reflection;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Scanner;
@@ -63,6 +64,30 @@ public class ReflectionTest {
             String name = m.getName();
 
             System.out.println("  ");
+            //print modifiers, return type and method name
+            String modifiers = Modifier.toString(m.getModifiers());
+            if (modifiers.length() > 0) System.out.println(modifiers + " ");
+            System.out.println(retType.getName() + " " + name + "(");
+            //print parameter types
+            Class[] parameterTypes = m.getParameterTypes();
+            for (int j = 0; j <parameterTypes.length; j++){
+                if (j > 0) System.out.println(", ");
+                System.out.println(parameterTypes[j].getName());
+            }
+            System.out.println(");");
+        }
+    }
+
+    public static void printFields(Class cl){
+        Field[] fields = cl.getDeclaredFields();
+
+        for (Field f : fields){
+            Class type = f.getType();
+            String name = f.getName();
+            System.out.println("  ");
+            String modifiers = Modifier.toString(f.getModifiers());
+            if (modifiers.length() > 0) System.out.println(modifiers + " ");
+            System.out.println(type.getName() + " " + name + ";");
         }
     }
 }
